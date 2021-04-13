@@ -46,3 +46,16 @@ def list_sum(num_list):
 
 print(list_sum([random.randint(1, 255) * x for x in range(20)]))
 
+
+def recursion(n):
+    if n == 1:
+        print('Done')
+    else:
+        print('Top num:', n)
+        recursion(n-1)
+        print('Bottom num:', n)
+
+
+recursion(5)
+
+
