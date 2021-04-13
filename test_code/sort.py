@@ -39,3 +39,18 @@ def bubble_sort(arr):
 
 lst = [random.randint(1, 255) * x for x in range(20)]
 bubble_sort(lst)
+
+
+def count_sort(lst):
+    result = []
+    count_lst = [0] * (max(lst) + 1)
+    for now in lst:
+        count_lst[now] += 1
+    for num in range(len(count_lst)):
+        for i in range(count_lst[num]):
+            result.append(num)
+    return result
+
+
+lst = [random.randint(1, 255) * x for x in range(20)]
+print(count_sort(lst))
