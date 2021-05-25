@@ -20,7 +20,7 @@ class Complex:
     def __mul__(self, other):
         if isinstance(other, Complex):
             newRe = self.re * other.re - self.im * other.im
-            newIm = self.re * other.im + self.im * other.re
+            newIm = self.re * other.im + self.re * other.im
         elif isinstance(other, int) or isinstance(other, float):
             newRe = self.re * other
             newIm = self.im * other
@@ -29,8 +29,12 @@ class Complex:
         return Complex(newRe, newIm)
     __rmul__ = __mul__
 
-a = Complex(1, 2)        
-try:
-    res = a * 'abcd'
-except ComplexError as ce:
-    print('Error in mul with args:', ce.arg1, ce.arg2)
+class Point(Complex):
+    def length(self):
+        return (self.re**2 + self.im**2)**(1/2)
+
+a = Point(3, 4)
+b = Complex(1, 2)
+print(a.length())
+c = a + b
+print(c)
