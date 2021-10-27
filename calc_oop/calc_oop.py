@@ -1,3 +1,8 @@
+CONST_A_NAME = 'a'
+CONST_B_NAME = 'b'
+CONST_OP_NAME = 'op'
+
+
 class Parser:
     def __init__(self, parsing_char=None):
         if parsing_char:
@@ -37,14 +42,14 @@ class CalculatorEngine:
             print('Use indentation symbol: "%s"'
                   % self._parser.parsing_char)
             return {
-                'a': 'No ',
-                'b': 'result',
-                'op': '+'
+                CONST_A_NAME: 'No ',
+                CONST_B_NAME: 'result',
+                CONST_OP_NAME: '+'
             }
         return {
-            'a': self.transfer_type(a),
-            'b': self.transfer_type(b),
-            'op': operator
+            CONST_A_NAME: self.transfer_type(a),
+            CONST_B_NAME: self.transfer_type(b),
+            CONST_OP_NAME: operator
         }
 
     def execute(self, a, b, operator):
@@ -66,9 +71,9 @@ class CalculatorInterface:
                 print('End')
                 break
             input_data = self._core.collect_input(input_string)
-            result = self._core.execute(a=input_data['a'],
-                                        b=input_data['b'],
-                                        operator=input_data['op'])
+            result = self._core.execute(a=input_data[CONST_A_NAME],
+                                        b=input_data[CONST_B_NAME],
+                                        operator=input_data[CONST_OP_NAME])
             print('Result:', result, '\n')
 
 
