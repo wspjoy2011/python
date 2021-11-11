@@ -2,7 +2,7 @@ import wikipedia
 import telebot
 
 wikipedia.set_lang('ru')
-bot = telebot.TeleBot('2066259622:AAEi050kt5H8iV2A-i8xAVs88ehZyd8Urrs')
+bot = telebot.TeleBot('your code')
 
 
 @bot.message_handler(commands=['start'])
