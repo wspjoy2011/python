@@ -6,11 +6,26 @@ from random import randint
 WINDOW_WIDTH = 425
 WINDOW_HEIGHT = 240
 
+login = 'Игрок'
+
 
 def begin_game():
     begin = messagebox.askquestion('Вопрос', "Начать игру?")
     if begin == 'no':
         exit()
+
+
+def enter_login(some=0):
+    global login
+    if login_entry.get():
+        if len(login_entry.get()) > 8:
+            messagebox.showinfo('Логин', 'Логин не больше 8-ми символов')
+        else:
+            login = login_entry.get()
+            win_child.destroy()
+            win.attributes("-topmost", True)
+    else:
+        messagebox.showinfo('Логин', 'Поле не может быть пустым.')
 
 
 def set_value(value):
@@ -86,10 +101,31 @@ def clear_score():
 
 win = tk.Tk()
 win.title('Game')
-win.geometry(f'{WINDOW_WIDTH}x{WINDOW_HEIGHT}')
+win.geometry(f'{WINDOW_WIDTH}x{WINDOW_HEIGHT}+200+100')
+win.resizable(False, False)
 win.bind('<Escape>', exit)
 
+
+win_child = tk.Toplevel(win)
+win_child.title('Логин')
+win_child.geometry(f'{WINDOW_WIDTH}x{WINDOW_HEIGHT}+200+100')
+win_child.attributes("-topmost", True)
+win_child.bind('<Return>', enter_login)
+
+login_label = tk.Label(win_child, font=('Arial', 15), text='Введите имя')
+login_label.grid(row=0, column=1, pady=15)
+
+login_entry = tk.Entry(win_child, font=('Arial', 15), width=20, justify=tk.CENTER)
+login_entry.grid(row=1, column=1, padx=70, pady=20)
+
+login_button = tk.Button(win_child, font=('Arial', 15), text='логин', command=lambda: enter_login())
+login_button.grid(row=2, column=1)
+
 begin_game()
+
+win_child.grab_set()
+win_child.focus_set()
+win_child.wait_window()
 
 
 items = ['Камень', "Ножницы", "Бумага"]
@@ -101,7 +137,7 @@ user_entry = tk.Entry(win, justify=tk.CENTER, font=('Arial', 15), width=15)
 user_entry['state'] = tk.DISABLED
 user_entry.grid(row=0, column=1)
 
-label_user = tk.Label(text='Игрок', font=('Arial', 10, 'bold'))
+label_user = tk.Label(text=login, font=('Arial', 10, 'bold'))
 label_user.grid(row=0, column=0)
 
 comp_entry = tk.Entry(win, justify=tk.CENTER, font=('Arial', 15), width=15)
