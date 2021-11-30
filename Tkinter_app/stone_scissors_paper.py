@@ -99,11 +99,18 @@ def clear_score():
     user_score, comp_score = 0, 0
 
 
+def exit_method():
+    dialog = messagebox.askquestion('Выход', 'Вы хотите выйти?')
+    if dialog == 'yes':
+        win.destroy()
+
+
 win = tk.Tk()
 win.title('Game')
 win.geometry(f'{WINDOW_WIDTH}x{WINDOW_HEIGHT}+200+100')
 win.resizable(False, False)
 win.bind('<Escape>', exit)
+win.protocol('WM_DELETE_WINDOW', exit_method)
 
 
 win_child = tk.Toplevel(win)
