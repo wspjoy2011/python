@@ -1,8 +1,3 @@
-# Super easy solar system based on the unit circle
-# with coordinates (cosx, siny)
-# Jean Joubert 7 April 2020
-# Moving the sun gives an idea of vortex movements of the planets and moons
-
 import turtle
 import time
 from math import *
