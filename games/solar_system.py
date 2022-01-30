@@ -33,10 +33,15 @@ class Asteroid(Planet):
     start_angle = 0.001
     increase_start_angle = 0.012421
 
-    def __init__(self):
-        Planet.__init__(self, (0.1, 0.1), 'white', randint(400, 600), sun, 0.012421)
+    def __init__(self, star, distance, increase_angle):
+        Planet.__init__(self, (0.1, 0.1), 'white', distance, star, increase_angle)
         self.angle += self.start_angle
-        Asteroid.start_angle += Asteroid.increase_start_angle
+        Asteroid.start_angle += increase_angle
+
+
+def move_objects(objects):
+    for object in objects:
+        object.move()
 
 
 window = Screen()
@@ -50,23 +55,25 @@ sun = Turtle(shape='circle')
 sun.color('yellow')
 sun.shapesize(5, 5)
 
-earth = Planet((1.0, 1.0), 'blue', 150, sun, 0.01)
+earth = Planet((1.0, 1.0), 'blue', 150, sun, 0.02)
 moon = Planet((0.5, 0.5), 'gray', 25, earth, 0.08)
+
+saturn = Planet((2.0, 2.0), 'orange', 200, sun, 0.005)
+
 mars = Planet((0.8, 0.8), 'red', 300, sun, 0.007)
 phobos = Planet((0.3, 0.3), 'grey', 40, mars, 0.06)
 deimos = Planet((0.2, 0.2), 'white', 25, mars, 0.08)
 
-planets = [earth, moon, mars, phobos, deimos]
+planets = [earth, moon, saturn, mars, phobos, deimos]
 
-asteroids = [Asteroid() for _ in range(500)]
+asteroids = [Asteroid(sun, randint(400, 600), 0.012421) for _ in range(500)]
+asteroids_saturn = [Asteroid(saturn, 40, 0.01) for _ in range(700)]
 
 window.listen()
 while True:
     window.update()
-    for planet in planets:
-        planet.move()
+    move_objects(planets)
+    move_objects(asteroids)
+    move_objects(asteroids_saturn)
 
-    for asteroid in asteroids:
-        asteroid.move()
-
-    sleep(0.01)
+    # sleep(0.001)
